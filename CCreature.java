@@ -57,8 +57,8 @@ public class CCreature {
 		m_type = type;
 	}
 
-	public void progress() {// retourne la direction de déplacement
-
+	public void progress() {
+		//augmente la vie pour les humains, et baisse pour les prédateurs
 		if (m_type == m_types.HUMAN.ordinal()) {
 			m_life++;
 		} else if (m_type == m_types.PREDATOR.ordinal()) {
@@ -68,6 +68,7 @@ public class CCreature {
 	}
 
 	public boolean isReachState() {
+		//pour savoir si la créa à attend son état
 		if (m_type == m_types.PREDATOR.ordinal()) {
 			if (m_life == 0)
 				return true;
@@ -87,5 +88,29 @@ public class CCreature {
 
 	public String toString() {
 		return "type : " + m_type + " life : " + m_life;
+	}
+
+	public boolean isHuman() {
+		if (m_type == m_types.HUMAN.ordinal())
+			return true;
+		return false;
+	}
+
+	public boolean isPredator() {
+		if (m_type == m_types.PREDATOR.ordinal())
+			return true;
+		return false;
+	}
+
+	public boolean isNone() {
+		if (m_type == m_types.NONECRE.ordinal())
+			return true;
+		return false;
+	}
+
+	public void eatCreature(CCreature c) {
+		c.setUpdate();
+		increaseLifeBy((int) (c.getM_life() / 2));
+		c.setM_type(CCreature.m_types.PREDATOR.ordinal());
 	}
 }

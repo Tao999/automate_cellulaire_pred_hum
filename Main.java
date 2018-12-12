@@ -10,7 +10,7 @@ public class Main {
 
 		// System.out.println(myApp.toString());
 		// System.out.println("----------------");
-		for (int i = 0; true; i++) {
+		while(true) {
 			// System.out.println(myApp.toString());
 			myApp.progress();
 			myApp.updateWindow();

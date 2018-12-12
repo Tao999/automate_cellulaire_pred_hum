@@ -13,6 +13,7 @@ public class CWindow extends JFrame {
 	}
 
 	public CWindow(int width, int height) {
+		setTitle("Prédateur");
 		JPanel panel = new JPanel();
 		setSize(width, height);
 		setResizable(false);
@@ -20,6 +21,7 @@ public class CWindow extends JFrame {
 		add(panel);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		System.setProperty("sun.java2d.opengl", "true");
 	}
 
 	public void update(CCreature[][] grid) {
