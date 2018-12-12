@@ -2,31 +2,47 @@ package pack;
 
 public class CCreature {
 	public enum m_types {
-		HUMAN, PREDATOR
+		NONECRE, HUMAN, PREDATOR
 	};
 
-	public final int MAX_HP_HUMAN = 10;
+	public final int MIN_HP_HUMAN = 1;
+	public final int MAX_HP_HUMAN = 5;
 	public final int MAX_HP_PREDATOR = 10;
 
 	private int m_type;
 	private int m_life;
+	private boolean m_lastUpdate;
 
 	public CCreature() {
 		m_type = (int) (Math.random() * m_types.values().length);
 		if (m_type == m_types.HUMAN.ordinal()) {
-			m_life = 1;
+			m_life = MIN_HP_HUMAN;
 		} else if (m_type == m_types.PREDATOR.ordinal()) {
 			m_life = MAX_HP_PREDATOR;
 		}
+		m_lastUpdate = false;
 	}
 
 	public CCreature(int type) {
 		m_type = type;
 		if (m_type == m_types.HUMAN.ordinal()) {
-			m_life = 1;
+			m_life = MIN_HP_HUMAN;
 		} else if (m_type == m_types.PREDATOR.ordinal()) {
 			m_life = MAX_HP_PREDATOR;
 		}
+		m_lastUpdate = false;
+	}
+
+	public boolean isUpdated() {
+		return m_lastUpdate;
+	}
+
+	public void clrUpdate() {
+		m_lastUpdate = false;
+	}
+
+	public void setUpdate() {
+		m_lastUpdate = true;
 	}
 
 	public int getM_type() {
@@ -37,37 +53,39 @@ public class CCreature {
 		return m_life;
 	}
 
-	public boolean Progress() {// retourne la direction de déplacement
+	public void setM_type(int type) {
+		m_type = type;
+	}
+
+	public void progress() {// retourne la direction de déplacement
 
 		if (m_type == m_types.HUMAN.ordinal()) {
 			m_life++;
-			if (m_life == MAX_HP_HUMAN) {
-				m_life = 1;
-				return false;
-			}
 		} else if (m_type == m_types.PREDATOR.ordinal()) {
 			m_life--;
-			if (m_life == 0)
-				return false;
 		}
-
-		return true;
+		m_lastUpdate = true;
 	}
 
-	public boolean IsDead() {
+	public boolean isReachState() {
 		if (m_type == m_types.PREDATOR.ordinal()) {
-			if (m_life <= 0)
+			if (m_life == 0)
 				return true;
+		} else if (m_type == m_types.HUMAN.ordinal()) {
+			if (m_life == MAX_HP_HUMAN) {
+				m_life = MIN_HP_HUMAN;
+				return true;
+			}
 		}
 		return false;
 	}
 
-	public void IncreaseLifeBy(int life) {
+	public void increaseLifeBy(int life) {
 		if (m_type == m_types.PREDATOR.ordinal())
 			m_life += life;
 	}
 
 	public String toString() {
-		return "type : " + m_type + "\nlife : " + m_life;
+		return "type : " + m_type + " life : " + m_life;
 	}
 }
