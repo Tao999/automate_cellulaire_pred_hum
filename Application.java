@@ -1,9 +1,9 @@
 package pack;
 
 public class Application {
-	private final int NB_ROW = 1000;
-	private final int NB_COL = 1000;
-	private final int NB_HUMAN = 10;// pourcentage
+	private final int NB_ROW = 400;
+	private final int NB_COL = 400;
+	private final int NB_HUMAN = 1;// pourcentage
 	private final int NB_PREDATOR = 1;// pourcentage
 	private CCreature[][] grid = new CCreature[NB_ROW][NB_COL];
 	private CWindow m_window;
@@ -75,10 +75,13 @@ public class Application {
 					for (int ii = -1; ii < 2 && !bTemp; ii++) {
 						// recherche d'humain
 						for (int jj = -1; jj < 2 && !bTemp; jj++) {
-							if (ii + i >= 0 && ii + i < NB_ROW && jj + j >= 0 && jj + j < NB_COL
-									&& !grid[i][j].isUpdated()) {
-								if (grid[ii + i][jj + j].isHuman()) {
-									grid[i][j].eatCreature(grid[ii + i][jj + j]);
+							if (!grid[i][j].isUpdated()) {
+								if (i + ii < 0)
+									ii = NB_ROW - 1;
+								if (j + jj < 0)
+									jj = NB_COL - 1;
+								if (grid[(i + ii) % NB_ROW][(j + jj) % NB_COL].isHuman()) {
+									grid[i][j].eatCreature(grid[(i + ii) % NB_ROW][(j + jj) % NB_COL]);
 									grid[i][j].progress();
 									bTemp = true;
 								}
@@ -90,11 +93,14 @@ public class Application {
 						// si pas d'humain, il se déplace
 						int ii = (int) (Math.random() * 3) - 1;
 						int jj = (int) (Math.random() * 3) - 1;
-						if (i + ii >= 0 && i + ii < NB_ROW && j + jj >= 0 && j + jj < NB_COL
-								&& !grid[i][j].isUpdated()) {
+						if (!grid[i][j].isUpdated()) {
 							grid[i][j].progress();
-							if (grid[i + ii][j + jj].isNone()) {
-								grid[ii + i][jj + j] = grid[i][j];
+							if (i + ii < 0)
+								ii = NB_ROW - 1;
+							if (j + jj < 0)
+								jj = NB_COL - 1;
+							if (grid[(i + ii) % NB_ROW][(j + jj) % NB_COL].isNone()) {
+								grid[(i + ii) % NB_ROW][(j + jj) % NB_COL] = grid[i][j];
 								grid[i][j] = creaVoid;
 							}
 						}
@@ -103,10 +109,15 @@ public class Application {
 					// HUMAN se déplace
 					int ii = (int) (Math.random() * 3) - 1;
 					int jj = (int) (Math.random() * 3) - 1;
-					if (i + ii >= 0 && i + ii < NB_ROW && j + jj >= 0 && j + jj < NB_COL && !grid[i][j].isUpdated()) {
+					if (!grid[i][j].isUpdated()) {
 						grid[i][j].progress();
-						if (grid[i + ii][j + jj].isNone()) {
-							grid[ii + i][jj + j] = grid[i][j];
+
+						if (i + ii < 0)
+							ii = NB_ROW - 1;
+						if (j + jj < 0)
+							jj = NB_COL - 1;
+						if (grid[(i + ii) % NB_ROW][(j + jj) % NB_COL].isNone()) {
+							grid[(i + ii) % NB_ROW][(j + jj) % NB_COL] = grid[i][j];
 							grid[i][j] = creaVoid;
 						}
 					}

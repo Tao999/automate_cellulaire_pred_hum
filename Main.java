@@ -4,19 +4,22 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("initialisation..");
+		System.setProperty("sun.java2d.opengl", "True");
 
 		Application myApp = new Application();
 		// CWindow myWindow = new CWindow();
-
 		// System.out.println(myApp.toString());
 		// System.out.println("----------------");
-		while(true) {
+
+		while (true) {
 			// System.out.println(myApp.toString());
+
 			myApp.progress();
 			myApp.updateWindow();
+
 		}
 		// System.out.println(myApp.toString());
-		//System.out.println("fin");
+		// System.out.println("fin");
 	}
 
 }

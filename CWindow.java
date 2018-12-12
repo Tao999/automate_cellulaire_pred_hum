@@ -34,30 +34,24 @@ public class CWindow extends JFrame {
 
 	@Override
 	public void paint(Graphics g) {
-		int pred = 0;
-		int hum = 0;
 		if (grid == null)
 			return;
 		for (int i = 0; i < grid[0].length; i++) {
 			for (int j = 0; j < grid.length; j++) {
 				if (grid[j][i].isHuman()) {
-					hum++;
-					g.setColor(new Color(0, 100, 0));
+					int iTemp = (int) ((((grid[j][i].getM_life() - grid[j][i].MIN_HP_HUMAN)
+							% (grid[j][i].MAX_HP_HUMAN - grid[j][i].MIN_HP_HUMAN)) * 230) / grid[j][i].MAX_HP_HUMAN)
+							+ 25;
+					g.setColor(new Color(0, iTemp, 0));
 				} else if (grid[j][i].isPredator()) {
-					pred++;
-					g.setColor(Color.red);
+					int iTemp = (int) ((grid[j][i].getM_life() * 255) / grid[j][i].MAX_HP_PREDATOR);
+					if (iTemp > 255)
+						iTemp = 255;
+					g.setColor(new Color(iTemp, 0, 0));
 				} else
 					g.setColor(Color.black);
-				g.fillRect(i, j, 1, 1);
+				g.fillRect(i, j, 1, 1);// AFFICHAGE DU PIXEL
 			}
 		}
-		g.setColor(Color.white);
-		g.setFont(new Font("consolas", Font.BOLD, 14));
-		/*
-		 * if (pred + hum != 0) { g.drawString(new String("Predateurs : " +
-		 * (int) (pred * 100 / (pred + hum)) + "%"), 10, 50); g.drawString(new
-		 * String("Humains    : " + (int) (hum * 100 / (pred + hum)) + "%"), 10,
-		 * 65); }
-		 */
 	}
 }

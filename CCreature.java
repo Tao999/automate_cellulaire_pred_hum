@@ -5,9 +5,9 @@ public class CCreature {
 		NONECRE, HUMAN, PREDATOR
 	};
 
-	public final int MIN_HP_HUMAN = 1;
+	public final int MIN_HP_HUMAN = 5;
 	public final int MAX_HP_HUMAN = 30;
-	public final int MAX_HP_PREDATOR = 5;
+	public final int MAX_HP_PREDATOR = 30;
 
 	private int m_type;
 	private int m_life;
@@ -15,9 +15,9 @@ public class CCreature {
 
 	public CCreature() {
 		m_type = (int) (Math.random() * m_types.values().length);
-		if (m_type == m_types.HUMAN.ordinal()) {
+		if (isHuman()) {
 			m_life = MIN_HP_HUMAN;
-		} else if (m_type == m_types.PREDATOR.ordinal()) {
+		} else if (isPredator()) {
 			m_life = MAX_HP_PREDATOR;
 		}
 		m_lastUpdate = false;
@@ -25,9 +25,9 @@ public class CCreature {
 
 	public CCreature(int type) {
 		m_type = type;
-		if (m_type == m_types.HUMAN.ordinal()) {
+		if (isHuman()) {
 			m_life = MIN_HP_HUMAN;
-		} else if (m_type == m_types.PREDATOR.ordinal()) {
+		} else if (isPredator()) {
 			m_life = MAX_HP_PREDATOR;
 		}
 		m_lastUpdate = false;
@@ -110,7 +110,7 @@ public class CCreature {
 	public void eatCreature(CCreature c) {
 		c.setUpdate();
 		increaseLifeBy((int) (c.getM_life()));
-		// c.increaseLifeBy(MAX_HP_PREDATOR / 2);
+		//c.increaseLifeBy(MAX_HP_PREDATOR / 6);
 		c.setM_type(CCreature.m_types.PREDATOR.ordinal());
 	}
 }
