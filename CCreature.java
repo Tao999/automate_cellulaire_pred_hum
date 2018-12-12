@@ -6,8 +6,8 @@ public class CCreature {
 	};
 
 	public final int MIN_HP_HUMAN = 1;
-	public final int MAX_HP_HUMAN = 5;
-	public final int MAX_HP_PREDATOR = 10;
+	public final int MAX_HP_HUMAN = 30;
+	public final int MAX_HP_PREDATOR = 5;
 
 	private int m_type;
 	private int m_life;
@@ -58,22 +58,22 @@ public class CCreature {
 	}
 
 	public void progress() {
-		//augmente la vie pour les humains, et baisse pour les prédateurs
-		if (m_type == m_types.HUMAN.ordinal()) {
+		// augmente la vie pour les humains, et baisse pour les prédateurs
+		if (isHuman()) {
 			m_life++;
-		} else if (m_type == m_types.PREDATOR.ordinal()) {
+		} else if (isPredator()) {
 			m_life--;
 		}
 		m_lastUpdate = true;
 	}
 
 	public boolean isReachState() {
-		//pour savoir si la créa à attend son état
-		if (m_type == m_types.PREDATOR.ordinal()) {
-			if (m_life == 0)
+		// pour savoir si la créa à attend son état
+		if (isPredator()) {
+			if (m_life <= 0)
 				return true;
-		} else if (m_type == m_types.HUMAN.ordinal()) {
-			if (m_life == MAX_HP_HUMAN) {
+		} else if (isHuman()) {
+			if (m_life >= MAX_HP_HUMAN) {
 				m_life = MIN_HP_HUMAN;
 				return true;
 			}
@@ -82,8 +82,7 @@ public class CCreature {
 	}
 
 	public void increaseLifeBy(int life) {
-		if (m_type == m_types.PREDATOR.ordinal())
-			m_life += life;
+		m_life += life;
 	}
 
 	public String toString() {
@@ -110,7 +109,8 @@ public class CCreature {
 
 	public void eatCreature(CCreature c) {
 		c.setUpdate();
-		increaseLifeBy((int) (c.getM_life() / 2));
+		increaseLifeBy((int) (c.getM_life()));
+		// c.increaseLifeBy(MAX_HP_PREDATOR / 2);
 		c.setM_type(CCreature.m_types.PREDATOR.ordinal());
 	}
 }
