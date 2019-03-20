@@ -1,7 +1,6 @@
-package pack;
 
 public class CCreature {
-	public enum m_types {
+	public enum m_types {// les types de créature
 		NONECRE, HUMAN, PREDATOR
 	};
 
@@ -14,6 +13,7 @@ public class CCreature {
 	private boolean m_lastUpdate;
 
 	public CCreature() {
+		// constructeur aléatoire
 		m_type = (int) (Math.random() * m_types.values().length);
 		if (isHuman()) {
 			m_life = MIN_HP_HUMAN;
@@ -45,15 +45,15 @@ public class CCreature {
 		m_lastUpdate = true;
 	}
 
-	public int getM_type() {
+	public int getType() {
 		return m_type;
 	}
 
-	public int getM_life() {
+	public int getLife() {
 		return m_life;
 	}
 
-	public void setM_type(int type) {
+	public void setType(int type) {
 		m_type = type;
 	}
 
@@ -109,8 +109,7 @@ public class CCreature {
 
 	public void eatCreature(CCreature c) {
 		c.setUpdate();
-		increaseLifeBy((int) (c.getM_life()));
-		//c.increaseLifeBy(MAX_HP_PREDATOR / 6);
-		c.setM_type(CCreature.m_types.PREDATOR.ordinal());
+		increaseLifeBy((int) (c.getLife()));
+		c.setType(CCreature.m_types.PREDATOR.ordinal());
 	}
 }

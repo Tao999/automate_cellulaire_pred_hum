@@ -1,4 +1,3 @@
-package pack;
 
 public class Main {
 	public static void main(String[] args) {
@@ -7,19 +6,12 @@ public class Main {
 		System.setProperty("sun.java2d.opengl", "True");
 
 		Application myApp = new Application();
-		// CWindow myWindow = new CWindow();
-		// System.out.println(myApp.toString());
-		// System.out.println("----------------");
 
 		while (true) {
-			// System.out.println(myApp.toString());
-
 			myApp.progress();
 			myApp.updateWindow();
 
 		}
-		// System.out.println(myApp.toString());
-		// System.out.println("fin");
 	}
 
 }

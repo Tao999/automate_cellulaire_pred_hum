@@ -1,10 +1,9 @@
-package pack;
 
 public class Application {
-	private final int NB_ROW = 400;
-	private final int NB_COL = 400;
-	private final int NB_HUMAN = 1;// pourcentage
-	private final int NB_PREDATOR = 1;// pourcentage
+	public final int NB_ROW = 800; // dimension de l'écran en hauteur
+	public final int NB_COL = 800; // dimension de l'écran en largeuyr
+	public final int NB_HUMAN = 1;// pourcentage des humains sur le terrain
+	public final int NB_PREDATOR = 1;// pourcentage des prédateurs sur le terrain
 	private CCreature[][] grid = new CCreature[NB_ROW][NB_COL];
 	private CWindow m_window;
 
@@ -12,11 +11,15 @@ public class Application {
 
 	public Application() {// initialisation
 		m_window = new CWindow(NB_COL, NB_ROW);
+
+		// remplissage de la grille avec des riens
 		for (int i = 0; i < NB_ROW; i++) {
 			for (int j = 0; j < NB_COL; j++) {
 				grid[i][j] = creaVoid;
 			}
 		}
+
+		// remplissage de la grille des populations
 		int nbIt = (int) (NB_COL * NB_ROW * NB_HUMAN) / 100;
 		while (nbIt > 0) {
 			int iTemp = (int) (Math.random() * NB_ROW);
@@ -26,7 +29,6 @@ public class Application {
 				nbIt--;
 			}
 		}
-
 		nbIt = (int) (NB_COL * NB_ROW * NB_PREDATOR) / 100;
 		while (nbIt > 0) {
 			int iTemp = (int) (Math.random() * NB_ROW);
@@ -43,6 +45,7 @@ public class Application {
 	}
 
 	public String toString() {
+		// ça sert à rien, mais bon, c'est la
 		String sTemp = "";
 		int nbHu = 0;
 		int nbPr = 0;
@@ -51,10 +54,10 @@ public class Application {
 
 				if (grid[i][j].isNone()) {
 					sTemp += "  ";
-				} else if (grid[i][j].getM_type() == CCreature.m_types.HUMAN.ordinal()) {
+				} else if (grid[i][j].getType() == CCreature.m_types.HUMAN.ordinal()) {
 					sTemp += "h ";
 					nbHu++;
-				} else if (grid[i][j].getM_type() == CCreature.m_types.PREDATOR.ordinal()) {
+				} else if (grid[i][j].getType() == CCreature.m_types.PREDATOR.ordinal()) {
 					sTemp += "p ";
 					nbPr++;
 				}
@@ -66,6 +69,7 @@ public class Application {
 	}
 
 	public void progress() {
+		// /!\WARNING/!\ code spaghetti
 		for (int i = 0; i < NB_ROW; i++) {
 			for (int j = 0; j < NB_COL; j++) {
 
