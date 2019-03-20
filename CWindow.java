@@ -52,13 +52,13 @@ public class CWindow extends JFrame {
 		for (int i = 0; i < grid[0].length; i++) {
 			for (int j = 0; j < grid.length; j++) {
 				if (grid[j][i].isHuman()) {// définie la couleur de l'humain
-					int iTemp = (int) ((((grid[j][i].getLife() - grid[j][i].MIN_HP_HUMAN)
-							% (grid[j][i].MAX_HP_HUMAN - grid[j][i].MIN_HP_HUMAN)) * 230) / grid[j][i].MAX_HP_HUMAN)
-							+ 25;
-					iTemp = 255;
+					int iTemp = (int) ((((grid[j][i].getLife() - CCreature.MIN_HP_HUMAN)
+							% (CCreature.MAX_HP_HUMAN - CCreature.MIN_HP_HUMAN)) * 255) / CCreature.MAX_HP_HUMAN)
+							+ 0;
+					// iTemp = 255;
 					m_imgBufG.setColor(new Color(0, iTemp, 0));
 				} else if (grid[j][i].isPredator()) {// définie la couleur du prédateur
-					int iTemp = (int) ((grid[j][i].getLife() * 255) / grid[j][i].MAX_HP_PREDATOR);
+					int iTemp = (int) ((grid[j][i].getLife() * 255) / CCreature.MAX_HP_PREDATOR);
 					if (iTemp > 255)
 						iTemp = 255;
 					m_imgBufG.setColor(new Color(iTemp, 0, 0));

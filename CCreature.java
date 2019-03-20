@@ -4,9 +4,10 @@ public class CCreature {
 		NONECRE, HUMAN, PREDATOR
 	};
 
-	public final int MIN_HP_HUMAN = 5;
-	public final int MAX_HP_HUMAN = 30;
-	public final int MAX_HP_PREDATOR = 30;
+	public final static int MIN_HP_HUMAN = 1;
+	public final static int MAX_HP_HUMAN = 30;
+	public final static int MAX_HP_PREDATOR = 30;
+	public final static int OFFSET_MAX_HP_HUMAN = 10;
 
 	private int m_type;
 	private int m_life;
@@ -16,7 +17,7 @@ public class CCreature {
 		// constructeur aléatoire
 		m_type = (int) (Math.random() * m_types.values().length);
 		if (isHuman()) {
-			m_life = MIN_HP_HUMAN;
+			m_life = MIN_HP_HUMAN + (int) (Math.random() * MAX_HP_HUMAN);
 		} else if (isPredator()) {
 			m_life = MAX_HP_PREDATOR;
 		}
@@ -26,7 +27,7 @@ public class CCreature {
 	public CCreature(int type) {
 		m_type = type;
 		if (isHuman()) {
-			m_life = MIN_HP_HUMAN;
+			m_life = MIN_HP_HUMAN + (int) (Math.random() * MAX_HP_HUMAN);
 		} else if (isPredator()) {
 			m_life = MAX_HP_PREDATOR;
 		}
@@ -74,7 +75,7 @@ public class CCreature {
 				return true;
 		} else if (isHuman()) {
 			if (m_life >= MAX_HP_HUMAN) {
-				m_life = MIN_HP_HUMAN;
+				m_life = MIN_HP_HUMAN + (int) (Math.random() * OFFSET_MAX_HP_HUMAN);
 				return true;
 			}
 		}

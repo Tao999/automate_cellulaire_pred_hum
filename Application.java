@@ -1,13 +1,13 @@
 
 public class Application {
-	public final int NB_ROW = 800; // dimension de l'écran en hauteur
-	public final int NB_COL = 800; // dimension de l'écran en largeuyr
-	public final int NB_HUMAN = 1;// pourcentage des humains sur le terrain
-	public final int NB_PREDATOR = 1;// pourcentage des prédateurs sur le terrain
+	public final static int NB_ROW = 800; // dimension de l'écran en hauteur
+	public final static int NB_COL = 800; // dimension de l'écran en largeuyr
+	public final static float NB_HUMAN = 1f;// pourcentage des humains sur le terrain
+	public final static float NB_PREDATOR = 0.5f;// pourcentage des prédateurs sur le terrain
 	private CCreature[][] grid = new CCreature[NB_ROW][NB_COL];
 	private CWindow m_window;
 
-	private final CCreature creaVoid = new CCreature(CCreature.m_types.NONECRE.ordinal());
+	private final static CCreature creaVoid = new CCreature(CCreature.m_types.NONECRE.ordinal());
 
 	public Application() {// initialisation
 		m_window = new CWindow(NB_COL, NB_ROW);
@@ -133,7 +133,7 @@ public class Application {
 				// ÉTAT spéciale
 				if (grid[i][j].isReachState()) {
 					if (grid[i][j].isHuman()) {
-						// l'hmain se duplique
+						// l'humain se duplique
 						int ii = (int) (Math.random() * 2) * 2 - 1;
 						int jj = (int) (Math.random() * 2) * 2 - 1;
 						if (i + ii >= 0 && i + ii < NB_ROW && j + jj >= 0 && j + jj < NB_COL) {
